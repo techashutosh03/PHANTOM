@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PHANTOM V2 - Personal Intelligence Operating System</title>
+  <link rel="stylesheet" href="../css/theme.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+
+  <!-- Particle Mesh Canvas -->
+  <canvas id="bgCanvas"></canvas>
+
+  <div class="dashboard-container">
+
+    <!-- HEADER HUD BAR -->
+    <header class="glass-panel hud-header">
+      <div class="brand-section">
+        <div class="arc-reactor">👻</div>
+        <div>
+          <div class="brand-title">PHANTOM V2</div>
+          <div class="brand-sub">Personal Intelligence Operating System</div>
+        </div>
+      </div>
+
+      <div class="hud-actions">
+        <span class="pill-badge active">🟢 AI Core Online</span>
+        <span class="pill-badge" id="memoryCountBadge">🧠 Vault Synced</span>
+        
+        <div style="text-align: right; border-left: 1px solid var(--border-glass); padding-left: 16px;">
+          <div id="hudLiveClock" style="font-family: var(--font-mono); font-size: 18px; font-weight: 700; color: var(--primary-cyan);">--:--:--</div>
+          <div id="hudLiveDate" style="font-size: 11px; color: var(--text-muted);">---</div>
+        </div>
+
+        <button id="muteToggleBtn" class="glow-btn" style="padding: 6px 12px; font-size: 11px;">🔊 Audio: ON</button>
+        <a href="login.html" class="glow-btn" style="border-color: var(--neon-red); color: var(--neon-red); padding: 6px 12px; font-size: 11px; text-decoration: none;">LOGOUT ⏻</a>
+      </div>
+    </header>
+
+    <!-- MAIN DASHBOARD GRID -->
+    <main class="dashboard-grid">
+
+      <!-- CARD 1: AI CORE STATUS -->
+      <section class="glass-panel hud-card col-3">
+        <div class="card-header">
+          <div class="card-title">🧠 AI Core Status</div>
+          <span style="font-size: 11px; color: var(--neon-green);">ONLINE</span>
+        </div>
+        <div style="font-size: 13px; line-height: 1.8;">
+          <div style="display:flex; justify-size:space-between; margin-bottom: 6px;">
+            <span style="color: var(--text-muted);">Brain Engine:</span>
+            <span id="aiBrainEngineText" style="font-weight: 600; color: var(--primary-cyan);">Ollama Llama 3</span>
+          </div>
+          <div style="display:flex; justify-size:space-between; margin-bottom: 6px;">
+            <span style="color: var(--text-muted);">Context Window:</span>
+            <span style="color: #fff;">8,192 Tokens</span>
+          </div>
+          <div style="display:flex; justify-size:space-between; margin-bottom: 6px;">
+            <span style="color: var(--text-muted);">Memory Vault:</span>
+            <span style="color: var(--neon-green);">Selective Extraction</span>
+          </div>
+          <div style="display:flex; justify-size:space-between;">
+            <span style="color: var(--text-muted);">Voice Engine:</span>
+            <span style="color: var(--primary-cyan);">Explicit Button 🎤</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- CARD 2: GOAL PREDICTOR & SKILLS ENGINE -->
+      <section class="glass-panel hud-card col-6">
+        <div class="card-header">
+          <div class="card-title">🎯 Goal Predictor & Skills Engine</div>
+          <span id="goalPercentText" style="font-size: 12px; font-weight: 700; color: var(--primary-cyan);">42% Complete</span>
+        </div>
+        <div style="margin-bottom: 16px;">
+          <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">Primary Career Goal</div>
+          <div id="goalTitle" style="font-size: 16px; font-weight: 700; color: #fff; margin: 4px 0 10px 0;">Become a World-Class AI Systems Engineer</div>
+          
+          <div class="hud-progress" style="height: 10px;">
+            <div id="goalProgressFill" class="hud-progress-fill" style="width: 42%;"></div>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-top: 6px; font-size: 12px; color: var(--text-muted);">
+            <span>Milestone: <strong id="milestoneTitle" style="color: var(--primary-cyan);">Learn PyTorch & Deep Learning</strong></span>
+            <span>Target: Q4 2026</span>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; border-top: 1px solid var(--border-glass); padding-top: 14px;">
+          <div>
+            <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px;">⚡ Current Skills</div>
+            <div id="currentSkillsList">
+              <span class="skill-tag">Java</span>
+              <span class="skill-tag">Node</span>
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">HTML</span>
+              <span class="skill-tag">CSS</span>
+              <span class="skill-tag">JS</span>
+            </div>
+          </div>
+          <div>
+            <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px;">💡 AI Recommended Next Skills</div>
+            <div id="nextSkillsList">
+              <span class="skill-tag recommended">+ PyTorch</span>
+              <span class="skill-tag recommended">+ LLM Fine-Tuning</span>
+              <span class="skill-tag recommended">+ Docker</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CARD 3: AI SUGGESTIONS WIDGET -->
+      <section class="glass-panel hud-card col-3">
+        <div class="card-header">
+          <div class="card-title">💡 Stark AI Nudges</div>
+          <span style="font-size: 11px; color: var(--primary-cyan);">DAILY</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <div class="suggestion-item">
+            <span>🐍</span> <span>Continue Python study session today</span>
+          </div>
+          <div class="suggestion-item">
+            <span>🎯</span> <span>Complete Mission 2 in Mission Control</span>
+          </div>
+          <div class="suggestion-item">
+            <span>📝</span> <span>Review PyTorch Notes in Second Brain</span>
+          </div>
+          <div class="suggestion-item">
+            <span>💧</span> <span>Drink water & take a 5-min focus break</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- CARD 4: PHANTOM AI CHAT INTERFACE -->
+      <section class="glass-panel hud-card col-6">
+        <div class="card-header">
+          <div class="card-title">💬 PHANTOM AI Intelligence Core</div>
+          <div style="display: flex; gap: 8px;">
+            <button id="ttsBtn" class="glow-btn" style="padding: 4px 10px; font-size: 11px;">🔊 Voice Output: ON</button>
+          </div>
+        </div>
+
+        <div class="chat-window">
+          <div class="messages-list" id="chatMessages">
+            <div class="msg-bubble assistant">
+              <div style="font-size: 11px; color: var(--primary-cyan); margin-bottom: 4px; font-weight: 600;">👻 PHANTOM AI Core</div>
+              Greetings Commander. PHANTOM V2 Personal Intelligence OS is ready.<br><br>
+              I feature <strong>Selective Memory Extraction</strong>. Tell me your goals, new skills, or commands like <em>"Open Chrome"</em> or <em>"Open VS Code"</em>.
+            </div>
+          </div>
+
+          <!-- Quick Chips -->
+          <div style="display: flex; gap: 6px; margin-bottom: 10px; overflow-x: auto; padding-bottom: 4px;">
+            <button class="glow-btn chat-chip" data-prompt="My goal is to build autonomous AI agents" style="padding: 3px 8px; font-size: 11px; text-transform:none;">🎯 My goal is...</button>
+            <button class="glow-btn chat-chip" data-prompt="Open Chrome" style="padding: 3px 8px; font-size: 11px; text-transform:none;">🚀 Open Chrome</button>
+            <button class="glow-btn chat-chip" data-prompt="Open VS Code" style="padding: 3px 8px; font-size: 11px; text-transform:none;">💻 Open VS Code</button>
+            <button class="glow-btn chat-chip" data-prompt="Remember that Python 3.12 is configured for TripVault" style="padding: 3px 8px; font-size: 11px; text-transform:none;">🧠 Remember...</button>
+          </div>
+
+          <div class="chat-input-bar">
+            <input type="text" id="chatInput" class="hud-input" placeholder="Type a message or click 🎤 to speak..." autocomplete="off">
+            <button id="voiceBtn" class="glow-btn" style="padding: 12px 14px;">🎤 Speak</button>
+            <button id="sendBtn" class="glow-btn" style="padding: 12px 18px;">Send</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- CARD 5: MISSION CONTROL -->
+      <section class="glass-panel hud-card col-6">
+        <div class="card-header">
+          <div class="card-title">🎯 Mission Control</div>
+          <span style="font-size: 11px; color: var(--primary-cyan);">SQLite Persistent</span>
+        </div>
+
+        <div id="missionsContainer" style="max-height: 290px; overflow-y: auto; margin-bottom: 14px;">
+          <!-- Loaded via JS -->
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+          <input type="text" id="newMissionInput" class="hud-input" placeholder="+ Create new mission title..." onkeypress="if(event.key==='Enter') addMission()">
+          <button class="glow-btn" onclick="addMission()">+ Add</button>
+        </div>
+      </section>
+
+      <!-- CARD 6: PROJECT TRACKER -->
+      <section class="glass-panel hud-card col-6">
+        <div class="card-header">
+          <div class="card-title">📊 Project Portfolio Tracker</div>
+          <span style="font-size: 11px; color: var(--primary-cyan);">Active Projects</span>
+        </div>
+        <div id="projectsContainer" style="max-height: 280px; overflow-y: auto;">
+          <!-- Loaded via JS -->
+        </div>
+      </section>
+
+      <!-- CARD 7: SECOND BRAIN (NOTES) -->
+      <section class="glass-panel hud-card col-6">
+        <div class="card-header">
+          <div class="card-title">📓 Second Brain (Notes Vault)</div>
+          <div style="display: flex; gap: 6px;">
+            <button class="glow-btn note-cat-pill active" id="cat_All" onclick="filterNotesCategory('All')" style="padding: 2px 8px; font-size: 10px;">All</button>
+            <button class="glow-btn note-cat-pill" id="cat_Work" onclick="filterNotesCategory('Work')" style="padding: 2px 8px; font-size: 10px;">Work</button>
+            <button class="glow-btn note-cat-pill" id="cat_Ideas" onclick="filterNotesCategory('Ideas')" style="padding: 2px 8px; font-size: 10px;">Ideas</button>
+            <button class="glow-btn note-cat-pill" id="cat_AI" onclick="filterNotesCategory('AI')" style="padding: 2px 8px; font-size: 10px;">AI</button>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 10px;">
+          <input type="text" id="noteSearchInput" class="hud-input" placeholder="🔍 Search notes instantly..." oninput="fetchNotes('All', this.value)" style="padding: 8px 12px; font-size: 12px;">
+        </div>
+
+        <div id="notesContainer" style="max-height: 180px; overflow-y: auto; margin-bottom: 12px;">
+          <!-- Loaded via JS -->
+        </div>
+
+        <!-- Note Creator -->
+        <div style="display: flex; flex-direction: column; gap: 6px; border-top: 1px solid var(--border-glass); padding-top: 10px;">
+          <div style="display: flex; gap: 6px;">
+            <input type="text" id="noteTitleInput" class="hud-input" placeholder="Note Title..." style="padding: 6px 10px; font-size: 12px; flex: 2;">
+            <select id="noteCategorySelect" class="hud-input" style="padding: 6px 10px; font-size: 12px; flex: 1;">
+              <option value="Personal">Personal</option>
+              <option value="Work">Work</option>
+              <option value="Ideas">Ideas</option>
+              <option value="Projects">Projects</option>
+              <option value="AI">AI</option>
+            </select>
+          </div>
+          <div style="display: flex; gap: 6px;">
+            <input type="text" id="noteContentInput" class="hud-input" placeholder="Note details..." style="padding: 6px 10px; font-size: 12px; flex: 1;">
+            <button class="glow-btn" onclick="saveNewNote()" style="padding: 6px 14px; font-size: 12px;">Save Note</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- CARD 8: EMOTION ENGINE VISUAL MIRROR -->
+      <section class="glass-panel hud-card col-4">
+        <div class="card-header">
+          <div class="card-title">💭 Emotion Mirror</div>
+          <span id="emotionStateLabel" style="font-size: 14px; font-weight: 700; color: var(--primary-cyan);">🔥 Motivated</span>
+        </div>
+
+        <div style="margin-bottom: 14px;">
+          <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); margin-bottom: 6px;">
+            <span>Stress & Fatigue Index</span>
+            <span id="stressPercentText" style="font-weight: 700; color: var(--primary-cyan);">15%</span>
+          </div>
+          <div class="hud-progress">
+            <div id="stressBarFill" class="hud-progress-fill" style="width: 15%; background: linear-gradient(90deg, #00ffaa, #ff9900);"></div>
+          </div>
+        </div>
+
+        <div id="emotionAdviceCard" style="padding: 12px; border-radius: var(--radius-md); background: rgba(0, 243, 255, 0.06); border: 1px solid var(--border-glass); font-size: 13px; color: #cbd5e1;">
+          ⚡ Focus levels optimal. System prime for deep engineering work.
+        </div>
+      </section>
+
+      <!-- CARD 9: SOS GUARDIAN EMERGENCY -->
+      <section id="sosCard" class="glass-panel hud-card col-4">
+        <div class="card-header">
+          <div class="card-title" style="color: var(--neon-red);">🚨 SOS Guardian</div>
+          <span class="pill-badge alert">ARMED</span>
+        </div>
+
+        <button class="sos-trigger-btn" onclick="triggerSOSGuardian()">🆘 ACTIVATE SOS EMERGENCY</button>
+        
+        <div id="sosBannerStatus" style="margin: 12px 0; font-size: 12px; color: var(--neon-green); text-align: center; font-weight: 600;">
+          🛡️ SOS Guardian Standby — Location Available
+        </div>
+
+        <button class="glow-btn" onclick="resetSOSGuardian()" style="width: 100%; border-color: var(--text-dim); color: var(--text-dim); padding: 6px; font-size: 11px;">
+          Disarm / Reset SOS
+        </button>
+      </section>
+
+      <!-- CARD 10: SYSTEM HEALTH TELEMETRY -->
+      <section class="glass-panel hud-card col-4">
+        <div class="card-header">
+          <div class="card-title">⚙️ System Telemetry</div>
+          <span id="hudUptime" style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);">UPTIME: 0m</span>
+        </div>
+
+        <div style="font-size: 12px; display: flex; flex-direction: column; gap: 8px;">
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--text-muted);">CPU Utilization:</span>
+            <span id="cpuUsageVal" style="font-family: var(--font-mono); color: var(--primary-cyan);">12%</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--text-muted);">RAM Memory:</span>
+            <span id="ramUsageVal" style="font-family: var(--font-mono); color: var(--primary-cyan);">45%</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--text-muted);">AI Brain State:</span>
+            <span id="aiStatusVal" style="color: var(--neon-green);">🟢 Active</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--text-muted);">Database:</span>
+            <span id="dbStatusVal" style="color: var(--neon-green);">🟢 Connected</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- CARD 11: ACTIVITY LOG TIMELINE -->
+      <section class="glass-panel hud-card col-12">
+        <div class="card-header">
+          <div class="card-title">📜 System Activity Log Feed</div>
+          <span style="font-size: 11px; color: var(--text-muted);">Live Events</span>
+        </div>
+        <div id="activityLogContainer" style="max-height: 130px; overflow-y: auto;">
+          <!-- Loaded via JS -->
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../js/audioSynth.js"></script>
+  <script src="../js/voice.js"></script>
+  <script src="../js/chat.js"></script>
+  <script src="../js/dashboard.js"></script>
+  <script src="../js/app.js"></script>
+</body>
+</html>

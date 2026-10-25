@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PHANTOM V2 - System Boot</title>
+  <link rel="stylesheet" href="../css/theme.css">
+  <link rel="stylesheet" href="../css/boot.css">
+</head>
+<body>
+
+  <canvas id="bgCanvas"></canvas>
+
+  <div class="boot-container">
+    <div class="boot-box">
+      <div class="boot-header">
+        <div class="arc-reactor">👻</div>
+        <div>
+          <div class="boot-title">PHANTOM V2 KERNEL</div>
+          <div style="font-size: 12px; color: var(--text-muted);">PERSONAL INTELLIGENCE OPERATING SYSTEM</div>
+        </div>
+      </div>
+
+      <div class="boot-terminal" id="terminalLogs">
+        <!-- Dynamic Logs appended via JS -->
+      </div>
+
+      <div class="progress-section">
+        <div class="progress-label">
+          <span id="bootStatusText">INITIALIZING KERNEL...</span>
+          <span id="bootPercentText">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="bootProgressBar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/audioSynth.js"></script>
+  <script src="../js/app.js"></script>
+  <script>
+    const sequence = [
+      { text: "Initializing PHANTOM V2 Operating System Kernel...", percent: 15 },
+      { text: "Loading AI Intelligence Core & Local Ollama Bridge...", percent: 32 },
+      { text: "Connecting Smart Memory Vault (phantom.db)...", percent: 50 },
+      { text: "Initializing SOS Guardian Protocol (Location Ready)...", percent: 68 },
+      { text: "Voice Assistant Engine Ready (Web Speech API)...", percent: 85 },
+      { text: "Database Sync Complete. Commander Authenticated.", percent: 95 },
+      { text: "ACCESS GRANTED. Welcome, Commander Stark.", percent: 100 }
+    ];
+
+    const logsContainer = document.getElementById('terminalLogs');
+    const statusText = document.getElementById('bootStatusText');
+    const percentText = document.getElementById('bootPercentText');
+    const progressBar = document.getElementById('bootProgressBar');
+
+    let index = 0;
+
+    function runBootStep() {
+      if (index < sequence.length) {
+        const step = sequence[index];
+        
+        const now = new Date().toLocaleTimeString([], { hour12: false, fractionalSecondDigits: 2 });
+        const line = document.createElement('div');
+        line.className = 'log-line';
+        line.innerHTML = `
+          <span class="log-time">[${now}]</span>
+          <span class="log-status">[OK]</span>
+          <span>${step.text}</span>
+        `;
+        logsContainer.appendChild(line);
+        logsContainer.scrollTop = logsContainer.scrollHeight;
+
+        statusText.textContent = step.text.toUpperCase();
+        percentText.textContent = step.percent + '%';
+        progressBar.style.width = step.percent + '%';
+
+        audioSynth.playClickSound();
+        index++;
+
+        if (index === sequence.length) {
+          audioSynth.playChimeSound();
+          setTimeout(() => {
+            window.location.href = 'index.html';
+          }, 1000);
+        } else {
+          setTimeout(runBootStep, 450);
+        }
+      }
+    }
+
+    setTimeout(runBootStep, 500);
+  </script>
+</body>
+</html>
